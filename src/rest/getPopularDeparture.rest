@@ -1,0 +1,1 @@
+GET http://localhost:3000/api/departure-station HTTP/1.1 
