@@ -4,25 +4,22 @@ import { Journey } from "../entity/Journey";
 
 const journeyData = AppDataSource.getRepository(Journey)
 
-//type sortDirection = "ASC" | "DESC"
-
-// type sortType = {
-//     key: string;
-//     value: sortDirection;
-// }
+export type SortType = {
+    field: string;
+    direction: string;
+}
 
 export type IJouney = {
     journeyList: Journey[]
     total: number
 }
 
-
-
-const getAllJourneys = async (pageSize: number, pageNumber: number, search: string | undefined): Promise<IJouney | Journey[]> => {
+const getAllJourneys = async (pageSize: number, pageNumber: number, search: string | undefined, sort: SortType): Promise<IJouney | Journey[]> => {
     const offset = pageSize * pageNumber
     const limit = pageSize
-
-    console.log(search)
+    console.log(sort)
+    const sortField = sort.field ? sort.field : 'departurestation_name'
+    console.log(sortField)
     if (search && search !== 'undefined') {
         console.log('at search')
         const [filteredJourneys, count] = await journeyData
@@ -32,6 +29,9 @@ const getAllJourneys = async (pageSize: number, pageNumber: number, search: stri
                 }, {
                     returnstation_name: ILike(`%${search}%`),
                 }],
+                order: {
+                    [sortField]: sort.direction
+                },
                 skip: offset,
                 take: limit,
             })
@@ -40,8 +40,11 @@ const getAllJourneys = async (pageSize: number, pageNumber: number, search: stri
     }
 
     const [journeys, journeysCount] = await journeyData.findAndCount({
+        order: {
+            [sortField]: sort.direction
+        },
         skip: offset,
-        take: limit,
+        take: limit
     })
     const result = { journeyList: journeys, total: journeysCount }
     return result;

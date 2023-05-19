@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import journeyService from '../services/journeyService';
+import journeyService, { SortType } from '../services/journeyService';
 import { BadRequestError } from '../utils/apiError';
 
 export const getJourneys = async (
@@ -8,9 +8,10 @@ export const getJourneys = async (
     next: NextFunction
 ) => {
     try {
+        console.log('test')
         console.log(req.query)
-        const allJourneys = await journeyService.getAllJourneys(Number(req.query.pagesize), Number(req.query.pagenumber), req.query.search as string);
-        console.log(req.body.sort )
+        const sort: SortType = { field: req.query.sortField as string, direction: req.query.sortDirection as string }
+        const allJourneys = await journeyService.getAllJourneys(Number(req.query.pagesize), Number(req.query.pagenumber), req.query.search as string, sort);
         res.json(allJourneys);
 
     } catch (error) {
