@@ -5,7 +5,6 @@ import { Station } from "./Station";
 import "reflect-metadata";
 
 dotenv.config({ path: '.env' });
-console.log(process.env.POSTGRES_PORT)
 
 export const AppDataSource = new DataSource({
     type: "postgres",

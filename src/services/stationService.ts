@@ -55,8 +55,20 @@ const mostPopularReturnStation = async (): Promise<Journey[]> => {
     return returnsCount
 }
 
+const updateStation = async (stationId: number, entry: Station): Promise<Station | null> => {
+    let station = await stationData.findOneBy({
+        id: stationId,
+      });
+      if (station) {
+        stationData.merge(station, entry);
+        station = await stationData.save(station);
+      }
+      return station;
+    };
 
-
-//const filterByCityStation = async(option:string):
-
-export { getAllStations, getStationByName, getStationData, mostPopularDepartureStation, mostPopularReturnStation } 
+const addStation = async (entry:Station):Promise<Station> =>{
+    const newStation = await stationData.save(entry);
+    return  newStation;
+    
+}
+export { getAllStations, getStationByName, getStationData, mostPopularDepartureStation, mostPopularReturnStation, updateStation, addStation } 

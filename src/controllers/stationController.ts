@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { getAllStations, getStationData,mostPopularDepartureStation, mostPopularReturnStation,  } from '../services/stationService';
+import { getAllStations, getStationData,mostPopularDepartureStation, mostPopularReturnStation,updateStation,addStation  } from '../services/stationService';
 import { BadRequestError } from '../utils/apiError';
 
 export const getStations = async (
@@ -65,5 +65,39 @@ export const getPopularReturnStationCount = async (
         }
         next(error);
     }
+}
 
+export const updatedStation = async(
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
+    try {
+        const stationEntry= req.body;
+        const stationId = Number(req.params.id)
+        const stationUpdate = await updateStation(stationId, stationEntry)
+        res.json(stationUpdate);
+    } catch (error) {
+        if (error instanceof Error && error.name == 'ValidationError') {
+            next(new BadRequestError('Invalid Request', error));
+        }
+        next(error);
+    }
+}
+
+export const addedStation = async(
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
+    try {
+        const stationEntry= req.body;
+        const addedStation = await addStation(stationEntry)
+        res.json(addedStation);
+    } catch (error) {
+        if (error instanceof Error && error.name == 'ValidationError') {
+            next(new BadRequestError('Invalid Request', error));
+        }
+        next(error);
+    }
 }

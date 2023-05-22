@@ -8,8 +8,6 @@ export const getJourneys = async (
     next: NextFunction
 ) => {
     try {
-        console.log('test')
-        console.log(req.query)
         const sort: SortType = { field: req.query.sortField as string, direction: req.query.sortDirection as string }
         const allJourneys = await journeyService.getAllJourneys(Number(req.query.pagesize), Number(req.query.pagenumber), req.query.search as string, sort);
         res.json(allJourneys);

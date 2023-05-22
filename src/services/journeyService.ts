@@ -17,11 +17,8 @@ export type IJouney = {
 const getAllJourneys = async (pageSize: number, pageNumber: number, search: string | undefined, sort: SortType): Promise<IJouney | Journey[]> => {
     const offset = pageSize * pageNumber
     const limit = pageSize
-    console.log(sort)
     const sortField = sort.field ? sort.field : 'departurestation_name'
-    console.log(sortField)
     if (search && search !== 'undefined') {
-        console.log('at search')
         const [filteredJourneys, count] = await journeyData
             .findAndCount({
                 where: [{

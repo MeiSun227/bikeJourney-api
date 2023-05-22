@@ -9,7 +9,6 @@ const PORT = 3000;
 
 app.listen(PORT, async () => {
   await AppDataSource.initialize()
-  console.log(`Server running on port ${PORT}`);
   if (process.env.READ_DATA) {
     await stationDB('stations.csv')
   }
