@@ -36,5 +36,35 @@ export const getJourney = async (
     }
 };
 
+export const addedJourney = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
+    try {
+        const journeyEntry = req.body;
+        const journey = await journeyService.addJourney(journeyEntry);
+        res.json(journey);
+    } catch (error) {
+        if (error instanceof Error && error.name == 'ValidationError') {
+            next(new BadRequestError('Invalid Request', error));
+        }
+        next(error);
+    }
+};
 
-
+export const deletedJourney = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      await journeyService.deleteJourney(Number(req.params.id));
+      res.sendStatus(204).end();
+    } catch (error) {
+      if (error instanceof Error && error.name == 'ValidationError') {
+        next(new BadRequestError('Invalid Request', error));
+      }
+      next(error);
+    }
+  };

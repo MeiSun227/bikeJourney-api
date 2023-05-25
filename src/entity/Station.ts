@@ -11,7 +11,7 @@ import { Journey } from './Journey';
 
 @Entity()
 export class Station {
-    @Column()
+    @Column({ nullable: true })
     FID!: number;
 
     @PrimaryColumn()

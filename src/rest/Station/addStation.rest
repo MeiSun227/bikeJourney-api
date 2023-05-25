@@ -3,13 +3,12 @@ Content-Type:application/json
 
 {
     "FID":350,
-    "id": 2411,
     "name": "KissuMaa",
     "address": "KissuPalku 1",
     "city": "Helsinki",
     "operator": "CityBike Finland",
     "capacities": 2,
-    "x": "11.82895",
-    "y": "23.175233"
+    "x": 11.82895,
+    "y": 23.175233
   
 }

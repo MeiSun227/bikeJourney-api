@@ -11,7 +11,8 @@
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "types": [
-      "node"
+      "node",
+      "jest"
     ],
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true, /* Skip type checking all .d.ts files. */

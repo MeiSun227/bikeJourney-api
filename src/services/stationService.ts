@@ -6,21 +6,26 @@ const stationData = AppDataSource.getRepository(Station)
 const journeyData = AppDataSource.getRepository(Journey)
 
 
-const getAllStations = async (): Promise<Station[]> => {
+const getAllStations = async (search: string | undefined): Promise<Station[]> => {
+    if (search && search !== 'underfined') {
+        const stationsList = await stationData
+            .createQueryBuilder('station')
+            .where(
+                "station.name like :search or station.address like  :search",
+                { search: `%${search}%` }
+            )
+            .getMany();
+        return stationsList
+    }
     const allStations = await stationData.find();
     return allStations;
-};
-
-const getStationByName = async (name: string): Promise<Station | null> => {
-    const station = await stationData.findOneBy({ name });
-    return station;
 };
 
 const getStationData = async (stationId: number): Promise<{}> => {
     const station = await stationData.findOneBy({ id: stationId }) as Station;
     const returnCount = await journeyData.countBy({ returnstation_id: station.id })
     const departureCount = await journeyData.countBy({ departurestation_id: station.id })
-    const result = { name: station.name, address: station.address, capacity: station.capacities, city: station.city, returnCount, departureCount, count: returnCount + departureCount };
+    const result = { name: station.name, address: station.address, capacity: station.capacities, city: station.city, returnCount, departureCount, count: returnCount + departureCount, x: station.x, y: station.y };
     return result;
 }
 
@@ -55,20 +60,24 @@ const mostPopularReturnStation = async (): Promise<Journey[]> => {
     return returnsCount
 }
 
-const updateStation = async (stationId: number, entry: Station): Promise<Station | null> => {
+const updateStation = async (entry: Station): Promise<Station | null> => {
     let station = await stationData.findOneBy({
-        id: stationId,
-      });
-      if (station) {
+        id: entry.id,
+    });
+    if (station) {
         stationData.merge(station, entry);
         station = await stationData.save(station);
-      }
-      return station;
-    };
+    }
+    return station;
+};
 
-const addStation = async (entry:Station):Promise<Station> =>{
+const addStation = async (entry: Station): Promise<Station> => {
     const newStation = await stationData.save(entry);
-    return  newStation;
-    
+    return newStation;
+
 }
-export { getAllStations, getStationByName, getStationData, mostPopularDepartureStation, mostPopularReturnStation, updateStation, addStation } 
+const deleteStation = async (id: number): Promise<void> => {
+    await stationData.delete({ id: id });
+};
+
+export { getAllStations, getStationData, mostPopularDepartureStation, mostPopularReturnStation, updateStation, addStation, deleteStation } 
