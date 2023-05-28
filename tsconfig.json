@@ -10,11 +10,8 @@
     "noFallthroughCasesInSwitch": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "types": [
-      "node",
-      "jest"
-    ],
+    "types": ["node", "jest"],
     "emitDecoratorMetadata": true,
-    "experimentalDecorators": true, /* Skip type checking all .d.ts files. */
+    "experimentalDecorators": true /* Skip type checking all .d.ts files. */
   }
 }
