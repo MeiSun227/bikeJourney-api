@@ -3,16 +3,16 @@ import "reflect-metadata";
 import { journeyDB, stationDB } from "./src/entity/service/init-data";
 import app from "./app";
 
-const PORT = process.env.PORT || 3001
+const PORT = process.env.PORT || 3000
 
 app.listen(PORT, async () => {
   try {
     await AppDataSource.initialize();
-    if (process.env.READ_DATA) {
+    if (process.env.READ_STATION) {
       await stationDB("stations.csv");
     }
     if (process.env.READ_DATA_JOURNEY) {
-      await journeyDB("2021-07.csv");
+      await journeyDB("2021-04.csv");
     }
   } catch (error) {
     return error;
