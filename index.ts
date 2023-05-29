@@ -3,7 +3,7 @@ import "reflect-metadata";
 import { journeyDB, stationDB } from "./src/entity/service/init-data";
 import app from "./app";
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3001
 
 app.listen(PORT, async () => {
   try {
@@ -17,4 +17,5 @@ app.listen(PORT, async () => {
   } catch (error) {
     return error;
   }
+  console.log(`Server running on port ${PORT}`)
 });

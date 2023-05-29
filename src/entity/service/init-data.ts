@@ -37,10 +37,10 @@ export const journeyDB = async (csvFilename: string) => {
     .pipe(csv.parse({ headers: true }))
     .on("error", (error) => console.error(error))
     .on("data", async (row) => {
-      if (Number(row.Duration) < 10) {
+      if (Number(row["Duration (sec.)"]) < 10) {
         return;
       }
-      if (Number(row.Covereddistance) < 10) {
+      if (Number(row["Covered distance (m)"]) < 10) {
         return;
       }
 
