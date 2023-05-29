@@ -33,7 +33,7 @@ This is a Express application that serves as a starting point for building a Bik
 - docker run --name some-postgres-test -e POSTGRES_PASSWORD=mysecretpassword -d postgres (test)
 
 ## Usage
-- npm run dev
+- ### `npm run dev`
 - Read csv 
   - station data: READ_STATION=true npm run dev
   - journey data: ...READ_JOURNEY_DATA= true npm run dev
@@ -54,8 +54,11 @@ This is a Express application that serves as a starting point for building a Bik
 
 ## Testing
 - Run test
-  - npm run test (all test)
-  - npm test -- tests/station_api.test.tsx (single test)
+  - ### `npm run test` 
+    this will run all the tests in the test folder
+  - ### `npm test -- tests/station_api.test.tsx`
+    this is only run single test case
+
 
 
 
