@@ -1,12 +1,13 @@
 # BikeJourney-api
 
-This is a Express application that serves as a starting point for building a Bike data web applications. It provides a basic setup for handling routes, middleware, and server configuration. Data is using from HSL. 
+This Express application serves as a robust foundation for developing Bike data web applications. It offers a comprehensive setup for efficiently managing routes, middleware, and server configuration. The application utilizes data sourced from HSL (Helsinki Regional Transport Authority) and leverages a relational database. To ensure reliable testing, the application integrates SuperTest, a powerful library for HTTP testing. With this solid groundwork, developers can seamlessly build feature-rich Bike data web applications.
+
+Feel free to customize the description further based on your specific requirements and application features.
 
 ## Table Contents
 - [Features](#features)
-- [Installation](#installation)
 - [Configuration](#configuration)
-- [API usage](#aPIUsage)
+- [API](#api)
 - [Testing](#testing)
 
 ## Features
@@ -21,35 +22,71 @@ This is a Express application that serves as a starting point for building a Bik
 ## Technologies
 - Express.js: Fast, unopinionated, and minimalist web framework for Node.js.
 - PostgreQl: Relational database for storing and managing data.
-- TypeORM: 
+- TypeORM
 - Docker
 - Supertest: HTTP assertions for integration testing.
 
-## Installation
-- git clone https://github.com/MeiSun227/bikeJourney-api.git
-- npm install
-- docker run --name some-postgres -e POSTGRES_PASSWORD=mysecretpassword -d postgres (develop)
-- docker run --name some-postgres-test -e POSTGRES_PASSWORD=mysecretpassword -d postgres (test)
+## Configuration
+-  ### `git clone https://github.com/MeiSun227/bikeJourney-api.git`
+    Clone the project into local machine. 
 
-## Usage
+- ### `npm install`
+    Install all the packages
+
+- ### `docker run --name some-postgres -e POSTGRES_PASSWORD=mysecretpassword -d postgres`
+    Configure Developement database 
+
+-  ### `docker run --name some-postgres-test -e POSTGRES_PASSWORD=mysecretpassword -d postgres`  
+  Configure Test database
+
 - ### `npm run dev`
-- Read csv 
-  - station data: READ_STATION=true npm run dev
-  - journey data: ...READ_JOURNEY_DATA= true npm run dev
+    Start the Express server 
 
-## API Endpoints
+- Read csv 
+  - ### `READ_STATION=true npm run dev`
+    This comman is to read station data from csv
+
+  - ## #`READ_JOURNEY_DATA= true npm run dev`
+   This comman is to read station data from csv
+
+## API 
 ### Station API Endpoints
-- search station with query search, search value must be string
- - example: [http://localhost:3000/api/station?search=](http://localhost:3000/api/station?search=Auringonkatu)
+ - ### `GET/ api/station?search= `
+    This endpoint is to fetch all stations and together with search value as variable.
+
+ - ### `GET/ api/station/:id` 
+    This endpoint is to fetch single station information by station id.
+
+ - ### `GET/ api/departure-station`
+    This endpoint is to top 5 popular departure stations.
+
+  - ### `GET/ api/return-station`
+    This endpoint is to top 5 popular return stations.
+
+  - ### `PUT/ api/station/:id`
+    This endpoint is to update any field of stations.
+  
+  - ### `POST/ api/station/`
+    This endpoint is to add new station into database.
+
+  - ### `DELETE/ api/station/:id`
+   This endpoint is to delete single station by station id.
+
+ - Example:http://localhost:3000/api/station?search=Auringonkatu
+
  
  ### Journey API Endpoints
- - Get all journey need to give pagenumber and page size as variable, because the big data set can spend too much time to load
-  - example: http://localhost:3000/api/journey?pagenumber=0&pagesize=5&sortDirection=asc
- 
- - Search journey endpoint is using query search, search value must be string
-  - example: http://localhost:3000/api/journey?pagenumber=0&pagesize=5&sortDirection=asc&search= 
+  - ### `GET/api/journey?pagenumber=&pagesize=&sortDirection=asc&search=`
+    This endpoint is used to fetch all journeys. Since the journey data is extensive, pagination is implemented. The frontend needs to provide variables such as pagenumber and pagesize. Additionally, it can be extended to include sorting and searching functionality.
 
-<p>In the repository, you can find all the example endpoints that can be tested using Visual Studio Code Rest</p>
+ - ### `GET/ api/journey/:id `
+    This endpoint is to fetch single journey information by id.
+  
+  - ### `DELETE/ api/journey/:id`
+   This endpoint is to delete single journey by id.
+
+  - Example: http://localhost:3000/api/journey?pagenumber=0&pagesize=5&sortDirection=asc&search= 
+
 
 ## Testing
 - Run test
@@ -57,12 +94,5 @@ This is a Express application that serves as a starting point for building a Bik
     this will run all the tests in the test folder
   - ### `npm test -- tests/station_api.test.tsx`
     this is only run single test case
-
-
-
-
-
-
-
 
 
