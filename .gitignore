@@ -2,3 +2,4 @@ node_modules
 2021-07.csv
 stations.csv
 .env
+data/

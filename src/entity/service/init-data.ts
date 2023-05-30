@@ -2,9 +2,9 @@ import * as fs from "fs";
 import * as path from "path";
 import * as csv from "fast-csv";
 import "reflect-metadata";
-import { AppDataSource } from "../data-source";
 import { Station } from "../Station";
 import { Journey } from "../Journey";
+import { AppDataSource } from "../data-source";
 
 const stationRepository = AppDataSource.getRepository(Station);
 const journeyRepository = AppDataSource.getRepository(Journey);
@@ -57,6 +57,4 @@ export const journeyDB = async (csvFilename: string) => {
      await  journeyRepository.save(journey);
     })
     .on("end", (rowCount: number) => console.log(`Parsed ${rowCount} rows`));
-
-    
 };

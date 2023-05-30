@@ -29,7 +29,7 @@ const getAllStations = async (
   if (search && search !== "underfined") {
     const stationsList = await stationData
       .createQueryBuilder("station")
-      .where("station.name like :search or station.address like  :search", {
+      .where("station.name ilike :search OR station.address ilike :search", {
         search: `%${search}%`,
       })
       .getMany();
